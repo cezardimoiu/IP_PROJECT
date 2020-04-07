@@ -1,0 +1,7 @@
+Add support for already logged in users.
+
+Add second activity panel.
+
+Add gameplay functionality.
+
+Add play as Guest.
