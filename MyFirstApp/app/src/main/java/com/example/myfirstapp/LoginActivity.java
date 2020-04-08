@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private Button loginBtn;
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,
+                Toast.makeText(LoginActivity.this,
                         "Logging in...", Toast.LENGTH_LONG).show();
                 startLogin();
             }
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,
+                Toast.makeText(LoginActivity.this,
                         "Registering...", Toast.LENGTH_LONG).show();
                 startRegister();
             }
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
 
-            Toast.makeText(MainActivity.this,
+            Toast.makeText(LoginActivity.this,
                     "Enter E-mail and password", Toast.LENGTH_LONG).show();
 
         }else{
@@ -73,14 +73,14 @@ public class MainActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 //Success
-                                Toast.makeText(MainActivity.this,
+                                Toast.makeText(LoginActivity.this,
                                         "Login Successful", Toast.LENGTH_LONG).show();
 
-                                startActivity(new Intent(MainActivity.this, Gameplay.class));
+                                startActivity(new Intent(LoginActivity.this, Gameplay.class));
 
                             } else {
                                 //Fail
-                                Toast.makeText(MainActivity.this,
+                                Toast.makeText(LoginActivity.this,
                                         "Login Error", Toast.LENGTH_LONG).show();
 
                             }
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
 
-            Toast.makeText(MainActivity.this,
+            Toast.makeText(LoginActivity.this,
                     "Enter E-mail and password", Toast.LENGTH_LONG).show();
 
         }else{
@@ -105,10 +105,10 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(MainActivity.this,
+                                Toast.makeText(LoginActivity.this,
                                         "Register successful, you may now log in", Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(MainActivity.this,
+                                Toast.makeText(LoginActivity.this,
                                         "E-mail already in use or invalid", Toast.LENGTH_LONG).show();
                             }
                         }
