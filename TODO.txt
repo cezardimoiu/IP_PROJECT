@@ -4,6 +4,12 @@ Add support for already logged in users.
 
 Add play as Guest.
 
+Save data if you close the app.
+
+Complete SettingMenu activity.
+
+
+
 
 
 BUGS:
