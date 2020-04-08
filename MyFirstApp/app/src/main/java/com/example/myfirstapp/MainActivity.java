@@ -1,5 +1,6 @@
 package com.example.myfirstapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(MainActivity.this,
+                        "Logging in...", Toast.LENGTH_LONG).show();
                 startLogin();
             }
         });
@@ -45,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(MainActivity.this,
+                        "Registering...", Toast.LENGTH_LONG).show();
                 startRegister();
             }
         });
@@ -70,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
                                 //Success
                                 Toast.makeText(MainActivity.this,
                                         "Login Successful", Toast.LENGTH_LONG).show();
+
+                                startActivity(new Intent(MainActivity.this, Gameplay.class));
 
                             } else {
                                 //Fail
