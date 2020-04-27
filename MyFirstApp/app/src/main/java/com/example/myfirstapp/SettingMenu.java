@@ -23,14 +23,10 @@ public class SettingMenu extends AppCompatActivity {
         setContentView(R.layout.activity_setting_menu);
 
         backBtn = (ImageButton) findViewById(R.id.backBtn);
-<<<<<<< HEAD
-=======
         helpBtn = (Button) findViewById(R.id.helpBtn);
         statsBtn = (Button) findViewById(R.id.statsBtn);
         settingsBtn = (Button) findViewById(R.id.settingsBtn);
         logoutBtn = (Button) findViewById(R.id.logoutBtn);
-
->>>>>>> eefb7c89e56082e90eefee7df9f9d0772e21d7b3
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

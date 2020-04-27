@@ -34,14 +34,11 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref = database.getReference("Users_Hash");
 
-<<<<<<< HEAD
     @SuppressLint("WrongViewCast")
-=======
     void addNewUser(String email) {
         User user = new User(email, 2);
         ref.push().setValue(user);
     }
->>>>>>> eefb7c89e56082e90eefee7df9f9d0772e21d7b3
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
