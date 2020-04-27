@@ -15,14 +15,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private Button loginBtn;
     private Button regBtn;
+    private Button guestBtn;
     private EditText emailText;
     private EditText passwordText;
+    public boolean isLogged;
 
 
     @Override
@@ -33,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         loginBtn = (Button) findViewById(R.id.loginBtn);
         regBtn = (Button) findViewById(R.id.regBtn);
+        guestBtn = (Button) findViewById(R.id.guestBtn);
+
         emailText = (EditText) findViewById(R.id.emailEditText);
         passwordText = (EditText) findViewById(R.id.passwordEditText);
 
@@ -54,19 +59,31 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        guestBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isLogged = false;
+                Toast.makeText(LoginActivity.this,
+                        "Playing as guest...", Toast.LENGTH_LONG).show();
+
+                startActivity(new Intent(LoginActivity.this, Gameplay.class));
+
+            }
+        });
+
     }
 
-    private void startLogin(){
+    private void startLogin() {
 
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
 
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
 
             Toast.makeText(LoginActivity.this,
                     "Enter E-mail and password", Toast.LENGTH_LONG).show();
 
-        }else{
+        } else {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -76,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this,
                                         "Login Successful", Toast.LENGTH_LONG).show();
 
+                                isLogged = true;
                                 startActivity(new Intent(LoginActivity.this, Gameplay.class));
 
                             } else {
@@ -90,16 +108,16 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void startRegister(){
+    private void startRegister() {
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
 
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)){
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
 
             Toast.makeText(LoginActivity.this,
                     "Enter E-mail and password", Toast.LENGTH_LONG).show();
 
-        }else{
+        } else {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
@@ -115,5 +133,22 @@ public class LoginActivity extends AppCompatActivity {
                     });
         }
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            Toast.makeText(LoginActivity.this,
+                    "Already logged in...", Toast.LENGTH_LONG).show();
+
+            isLogged = true;
+            startActivity(new Intent(LoginActivity.this, Gameplay.class));
+
+        }
+    }
+
 }
 
