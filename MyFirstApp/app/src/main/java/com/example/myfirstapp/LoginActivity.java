@@ -53,7 +53,9 @@ public class LoginActivity extends AppCompatActivity {
         emailText = (EditText) findViewById(R.id.emailEditText);
         passwordText = (EditText) findViewById(R.id.passwordEditText);
 
-
+        if ( mAuth.getCurrentUser() == null){
+            isLogged = false;
+        }
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

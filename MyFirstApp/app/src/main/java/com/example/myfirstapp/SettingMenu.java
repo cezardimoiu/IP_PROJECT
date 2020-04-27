@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class SettingMenu extends AppCompatActivity {
 
     private ImageButton backBtn;
@@ -16,11 +18,13 @@ public class SettingMenu extends AppCompatActivity {
     private Button statsBtn;
     private Button settingsBtn;
     private Button logoutBtn;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_menu);
+        mAuth = FirebaseAuth.getInstance();
 
         backBtn = (ImageButton) findViewById(R.id.backBtn);
         helpBtn = (Button) findViewById(R.id.helpBtn);
@@ -61,8 +65,18 @@ public class SettingMenu extends AppCompatActivity {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SettingMenu.this,
-                        "Logout btn works", Toast.LENGTH_LONG).show();
+
+                if (mAuth.getCurrentUser() != null) {
+                    FirebaseAuth.getInstance().signOut();
+                    Toast.makeText(SettingMenu.this,
+                            "Logging out", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(SettingMenu.this, LoginActivity.class));
+                }
+                else{
+                    Toast.makeText(SettingMenu.this,
+                            "You are currently a Guest", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
