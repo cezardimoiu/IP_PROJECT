@@ -1,5 +1,6 @@
 package com.example.myfirstapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,9 +26,11 @@ public class LoginActivity extends AppCompatActivity {
     private Button guestBtn;
     private EditText emailText;
     private EditText passwordText;
+    //private Button logOutBtn;
     public boolean isLogged;
 
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +38,14 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         loginBtn = (Button) findViewById(R.id.loginBtn);
+        //logOutBtn =  (Button) findViewById(R.id.logout);
         regBtn = (Button) findViewById(R.id.regBtn);
         guestBtn = (Button) findViewById(R.id.guestBtn);
 
         emailText = (EditText) findViewById(R.id.emailEditText);
         passwordText = (EditText) findViewById(R.id.passwordEditText);
+
+
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,6 +76,15 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+        /*logOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(LoginActivity.this,
+                        "Registering...", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(LoginActivity.this, Gameplay.class));
+            }
+        });*/
 
     }
 
