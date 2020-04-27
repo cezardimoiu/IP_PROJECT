@@ -17,23 +17,49 @@
         app:srcCompat="@android:drawable/ic_menu_revert" />
 
     <Button
+<<<<<<< HEAD
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="298dp"
         android:text="Temp2"
+=======
+        android:id="@+id/helpBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Help"
+        app:layout_constraintBottom_toTopOf="@+id/statsBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/statsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Temp3"
+        android:text="Stats"
+        app:layout_constraintBottom_toTopOf="@+id/settingsBtn"
+>>>>>>> eefb7c89e56082e90eefee7df9f9d0772e21d7b3
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+<<<<<<< HEAD
+        app:layout_constraintTop_toTopOf="parent" />
+=======
+        app:layout_constraintTop_toBottomOf="@+id/helpBtn" />
+>>>>>>> eefb7c89e56082e90eefee7df9f9d0772e21d7b3
+
+    <Button
+        android:id="@+id/settingsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        app:layout_constraintBottom_toTopOf="@+id/logoutBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
     <ImageButton
@@ -45,4 +71,17 @@
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintStart_toStartOf="@+id/button2"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+=======
+        app:layout_constraintTop_toBottomOf="@+id/statsBtn" />
+
+    <Button
+        android:id="@+id/logoutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsBtn" />
+>>>>>>> eefb7c89e56082e90eefee7df9f9d0772e21d7b3
 </androidx.constraintlayout.widget.ConstraintLayout>
