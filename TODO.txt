@@ -4,5 +4,12 @@ Save data if you close the app.
 
 Add help, stats, logout, settings.
 
+Add databese.
+
+Update gameplay activity.
+
+Add shops / powerups.
+
+
 BUGS:
 
