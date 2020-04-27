@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,7 +29,13 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordText;
     public boolean isLogged;
 
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref = database.getReference("Users_Hash");
 
+    void addNewUser(String email) {
+        User user = new User(email, 2);
+        ref.push().setValue(user);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(LoginActivity.this,
                         "Registering...", Toast.LENGTH_LONG).show();
+                addNewUser(emailText.getEditableText().toString());
                 startRegister();
             }
         });
