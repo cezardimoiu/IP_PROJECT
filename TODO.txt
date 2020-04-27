@@ -1,17 +1,8 @@
 TODO:
 
-Add support for already logged in users.
-
-Add play as Guest.
-
 Save data if you close the app.
 
-Complete SettingMenu activity.
-
-
-
-
+Add help, stats, logout, settings.
 
 BUGS:
 
-Login/register very slow just after installing app ?
