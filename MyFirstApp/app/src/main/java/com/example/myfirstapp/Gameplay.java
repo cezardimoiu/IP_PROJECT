@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,8 +17,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,12 +26,14 @@ public class Gameplay extends AppCompatActivity {
     private Button clickBtn;
     private ImageButton settingMenuBtn;
     public static int currentMoneyAmount;
-    public static int currentMoneyIncrease = 1;
+    public static int currentMoneyIncrease = 2;
     public int currentMoneyPerSecond = 1;
     public int currentRefreshTime = 1000; //in ms
     private static boolean timerNotSet = true;
+    int animX, animY;
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,7 @@ public class Gameplay extends AppCompatActivity {
             }
         });*/
 
-        img.setOnClickListener(new View.OnClickListener() {
+        /*img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Gameplay.this, Gameplay.class);
@@ -71,6 +72,29 @@ public class Gameplay extends AppCompatActivity {
                 v.startAnimation(a);
 
                 //clickBtn.setVisibility(View.VISIBLE);
+            }
+        });*/
+
+        img.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    animX = (int) event.getX() + (int) v.getX();
+                    animY = (int) event.getY() + (int) v.getY();
+                    Intent i = new Intent(Gameplay.this, Gameplay.class);
+                    //clickBtn.setVisibility(View.VISIBLE);
+                    Animation a = AnimationUtils.loadAnimation(Gameplay.this, R.anim.coockie_animation);
+                    a.setAnimationListener(new SimpleAnimationListener() {
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            addMoney(Integer.toString(currentMoneyIncrease), animX, animY);
+                            moneyText.setText(currentMoneyAmount + "$");
+                        }
+                    });
+                    v.startAnimation(a);
+                }
+                return true;
             }
         });
 
@@ -101,13 +125,13 @@ public class Gameplay extends AppCompatActivity {
     }
 
     @SuppressLint("WrongConstant")
-    private void addMoney(int stringID){
+    private void addMoney(String stringID, int x, int y){
         currentMoneyAmount += currentMoneyIncrease;
         Toast toast = new Toast(this);
-        toast.setGravity(Gravity.CENTER, 100,100);
+        toast.setGravity(Gravity.TOP|Gravity.LEFT, x, y);
         toast.setDuration(0);
         TextView textView = new TextView(this);
-        textView.setText(stringID);
+        textView.setText("+" + stringID + "$");
         textView.setTextSize(30f);
         textView.setTextColor(Color.BLACK);
         toast.setView(textView);
