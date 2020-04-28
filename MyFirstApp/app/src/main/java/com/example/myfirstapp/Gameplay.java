@@ -131,13 +131,19 @@ public class Gameplay extends AppCompatActivity {
         toast.setGravity(Gravity.TOP|Gravity.LEFT, x, y);
         toast.setDuration(0);
         TextView textView = new TextView(this);
+        /*textView.setGravity(Gravity.TOP|Gravity.LEFT);
+        textView.setX(x);
+        textView.setY(y);*/
         textView.setText("+" + stringID + "$");
         textView.setTextSize(30f);
-        textView.setTextColor(Color.BLACK);
+        textView.setShadowLayer(10,0,0,Color.BLACK);
+        textView.setTextColor(Color.WHITE);
         toast.setView(textView);
         toast.show();
-
-
+        /*Animation a = AnimationUtils.loadAnimation(Gameplay.this, R.anim.money_text_animation);
+        a.reset();
+        textView.clearAnimation();
+        textView.startAnimation(a);*/
     }
 
 }
