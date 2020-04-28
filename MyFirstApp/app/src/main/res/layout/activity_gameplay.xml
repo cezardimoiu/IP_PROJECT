@@ -8,15 +8,15 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient">
 
+
     <TextView
         android:id="@+id/moneyView"
-        android:layout_width="180dp"
+        android:layout_width="80dp"
         android:layout_height="30dp"
         android:layout_above="@+id/clicker"
         android:layout_alignEnd="@+id/clicker"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginBottom="50dp"
         android:background="#fdbb2d"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -27,25 +27,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="66dp"
-        android:layout_above="@+id/moneyView"
-        android:layout_alignStart="@+id/clicker"
-        android:layout_alignEnd="@+id/clicker"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="0dp"
-        android:background="#1a2a6c"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Money"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/settingMenuBtn"
@@ -59,7 +40,8 @@
         app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toEndOf="@+id/editText"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_manage" />
+        app:srcCompat="@android:drawable/ic_menu_manage"
+        tools:ignore="UnknownId" />
 
     <ImageView
         android:id="@+id/clicker"
