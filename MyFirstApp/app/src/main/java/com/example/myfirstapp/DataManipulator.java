@@ -1,7 +1,6 @@
 package com.example.myfirstapp;
 
 public class DataManipulator {
-
     private Shop myShop;
     private User myUser;
     private static DataManipulator single_instance = null;

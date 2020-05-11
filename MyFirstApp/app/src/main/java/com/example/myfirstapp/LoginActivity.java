@@ -31,15 +31,24 @@ public class LoginActivity extends AppCompatActivity {
     //private Button logOutBtn;
     public boolean isLogged;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference ref = database.getReference("Users_Hash");
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref = database.getReference("users");
+
+    User user = User.getInstance();
 
     @SuppressLint("WrongViewCast")
     void addNewUser(String email) {
-        User user = User.getInstance();
+        String username = email.split("@")[0];
         user.setEmail(email);
-        user.setClicks(2);
-        ref.push().setValue(user);
+        DatabaseReference localRef = ref.child(username);
+        user.setClicks(0);
+        int rez[] = user.getAllUserInfo();
+        localRef.child("goldBars").setValue(rez[0]);
+        localRef.child("totalMoneyThisscension").setValue(rez[1]);
+        localRef.child("clicks").setValue(rez[2]);
+        localRef.child("currentMoneyIncrease").setValue(rez[3]);
+        localRef.child("currentMoneyAmount").setValue(rez[4]);
+        localRef.child("currentMoneyPerSecond").setValue(rez[5]);
     }
 
     @Override
@@ -49,10 +58,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         loginBtn = (Button) findViewById(R.id.loginBtn);
-        //logOutBtn =  (Button) findViewById(R.id.logout);
         regBtn = (Button) findViewById(R.id.regBtn);
         guestBtn = (Button) findViewById(R.id.guestBtn);
-
         emailText = (EditText) findViewById(R.id.emailEditText);
         passwordText = (EditText) findViewById(R.id.passwordEditText);
 
@@ -85,21 +92,9 @@ public class LoginActivity extends AppCompatActivity {
                 isLogged = false;
                 Toast.makeText(LoginActivity.this,
                         "Playing as guest...", Toast.LENGTH_LONG).show();
-
                 startActivity(new Intent(LoginActivity.this, Gameplay.class));
-
             }
         });
-
-        /*logOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(LoginActivity.this,
-                        "Registering...", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(LoginActivity.this, Gameplay.class));
-            }
-        });*/
-
     }
 
     private void startLogin() {

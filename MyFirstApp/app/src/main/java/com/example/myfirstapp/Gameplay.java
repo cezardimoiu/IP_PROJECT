@@ -21,7 +21,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Gameplay extends AppCompatActivity {
-
     private TextView moneyText;
     private TextView moneyPerSecText;
     private Button clickBtn;
