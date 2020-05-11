@@ -53,7 +53,6 @@ public class Gameplay extends AppCompatActivity {
         img.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     animX = (int) event.getX() + (int) v.getX();
                     animY = (int) event.getY() + (int) v.getY();
@@ -104,7 +103,6 @@ public class Gameplay extends AppCompatActivity {
     @SuppressLint("WrongConstant")
     private void addMoney(String stringID, int x, int y){
         myUser.addMoney();
-
 
         Toast toast = new Toast(this);
         toast.setGravity(Gravity.TOP|Gravity.LEFT, x, y);

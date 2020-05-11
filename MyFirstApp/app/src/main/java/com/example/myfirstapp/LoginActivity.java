@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference ref = database.getReference("users");
 
-    User user = User.getInstance();
+    protected User user = User.getInstance();
 
     void addNewUser(String email) {
         String username = email.split("@")[0];
