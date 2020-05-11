@@ -86,6 +86,9 @@ public class Gameplay extends AppCompatActivity {
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 moneyText.setText(myUser.getCurrentMoneyAmount() + "$");
+
+                //Temporary place for updating money/sec text
+                moneyPerSecText.setText(myUser.getCurrentMoneyPerSecond() + "$/sec");
             }
         }, 0, 100);
 
