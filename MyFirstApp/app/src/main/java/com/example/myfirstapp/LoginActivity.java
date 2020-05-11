@@ -99,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                 isLogged = false;
                 Toast.makeText(LoginActivity.this,
                         "Playing as guest...", Toast.LENGTH_LONG).show();
+                // TODO - get data from file for guest user
                 startActivity(new Intent(LoginActivity.this, Gameplay.class));
             }
         });
@@ -214,7 +215,9 @@ public class LoginActivity extends AppCompatActivity {
             });
             isLogged = true;
             startActivity(new Intent(LoginActivity.this, Gameplay.class));
-
+        } else {
+            // TODO - get data from file for guest user
+            user.resetUser();
         }
     }
 
