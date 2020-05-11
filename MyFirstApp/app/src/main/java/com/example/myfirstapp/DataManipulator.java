@@ -38,7 +38,7 @@ public class DataManipulator {
         //TODO - read from file
 
 
-        //setUser(email, userData);
+        //myUser.setUser(email, userData);
         //myShop.setShop(shopData);
     }
 

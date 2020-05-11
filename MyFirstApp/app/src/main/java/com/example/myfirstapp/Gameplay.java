@@ -87,8 +87,8 @@ public class Gameplay extends AppCompatActivity {
             public void run() {
                 moneyText.setText(myUser.getCurrentMoneyAmount() + "$");
 
-                //Temporary place for updating money/sec text
-                moneyPerSecText.setText(myUser.getCurrentMoneyPerSecond() + "$/sec");
+                //TODO - update moneyPerSec
+                //moneyPerSecText.setText(myUser.getCurrentMoneyPerSecond() + "$/sec");
             }
         }, 0, 100);
 

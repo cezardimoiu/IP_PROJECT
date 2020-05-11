@@ -29,7 +29,7 @@ class User {
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                currentMoneyAmount += currentMoneyPerSecond;
+                currentMoneyAmount += currentMoneyPerSecond ;
                 //moneyText.setText(currentMoneyAmount + "$");
             }
         }, 0, currentRefreshTime);
@@ -135,7 +135,7 @@ class User {
 
     public void addMoney()
     {
-        this.currentMoneyAmount += this.currentMoneyIncrease + (int)(goldBars * 0.01f);
+        this.currentMoneyAmount += this.currentMoneyIncrease + (int)(goldBars * 0.1f);
         this.clicks ++;
     }
 
