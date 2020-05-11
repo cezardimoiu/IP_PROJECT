@@ -27,7 +27,7 @@ public class Gameplay extends AppCompatActivity {
     private Button clickBtn;
     private ImageButton settingMenuBtn;
     public static int currentMoneyAmount;
-    public static int currentMoneyIncrease = 1;
+    public static int currentMoneyIncrease = 4;
     public int currentMoneyPerSecond = 1;
     public int currentRefreshTime = 1000; //in ms
     private static boolean timerNotSet = true;
@@ -64,7 +64,7 @@ public class Gameplay extends AppCompatActivity {
                 a.setAnimationListener(new SimpleAnimationListener() {
                     @Override
                     public void onAnimationEnd(Animation animation) {
-                        addMoney(R.string.clicked);
+                        addMoney("+" + currentMoneyIncrease);
                         moneyText.setText(currentMoneyAmount + "$");
                     }
                 });
@@ -101,13 +101,13 @@ public class Gameplay extends AppCompatActivity {
     }
 
     @SuppressLint("WrongConstant")
-    private void addMoney(int stringID){
+    private void addMoney(String str){
         currentMoneyAmount += currentMoneyIncrease;
         Toast toast = new Toast(this);
         toast.setGravity(Gravity.CENTER, 100,100);
         toast.setDuration(0);
         TextView textView = new TextView(this);
-        textView.setText(stringID);
+        textView.setText(str);
         textView.setTextSize(30f);
         textView.setTextColor(Color.BLACK);
         toast.setView(textView);
