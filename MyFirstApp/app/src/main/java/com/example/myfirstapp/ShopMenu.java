@@ -61,24 +61,36 @@ public class ShopMenu extends AppCompatActivity {
             clickBtns[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    myShop.buyClick(i);
+                    if ( myShop.buyClick(i)){
                     clickBtns[i].setText(myShop.getClickPrice(i) + "$");
                     moneyView.setText(myUser.getCurrentMoneyAmount() + "$");
                     Toast.makeText(ShopMenu.this,
                             "+ " + myShop.getClickBonus(i) +"$/click",
                             Toast.LENGTH_LONG).show();
-                }
+                    }
+                        else{
+                        Toast.makeText(ShopMenu.this,
+                                "Not enough $",
+                                Toast.LENGTH_LONG).show();
+                    }
+                    }
             });
 
             secondBtns[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    myShop.buySecond(i);
-                    secondBtns[i].setText(myShop.getSecondPrice(i) + "$");
-                    moneyView.setText(myUser.getCurrentMoneyAmount() + "$");
-                    Toast.makeText(ShopMenu.this,
-                            "+ " + myShop.getSecondBonus(i) +"$/sec",
-                            Toast.LENGTH_LONG).show();
+                    if ( myShop.buySecond(i)) {
+                        secondBtns[i].setText(myShop.getSecondPrice(i) + "$");
+                        moneyView.setText(myUser.getCurrentMoneyAmount() + "$");
+                        Toast.makeText(ShopMenu.this,
+                                "+ " + myShop.getSecondBonus(i) + "$/sec",
+                                Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(ShopMenu.this,
+                                "Not enough $",
+                                Toast.LENGTH_LONG).show();
+                    }
                 }
             });
 
