@@ -10,7 +10,8 @@ public class DataManipulator {
     {
         this.myShop = Shop.getInstance();
         this.myUser = User.getInstance();
-        //add file for reading/ writing;
+
+        //TODO - add file for reading/ writing;
     }
 
     public static DataManipulator getInstance(){
