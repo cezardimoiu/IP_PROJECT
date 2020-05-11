@@ -25,7 +25,7 @@ public class DataManipulator {
         int userData [] = myUser.getAllUserInfo();
         int shopData [][] = myShop.getAllShopInfo();
 
-        //write all data
+        //TODO - write all data to file
     }
 
     public void readInfo()
@@ -34,7 +34,7 @@ public class DataManipulator {
         int userData [];
         String email;
 
-        //read from file
+        //TODO - read from file
 
 
         myUser.setUser(email, userData);

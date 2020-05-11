@@ -19,12 +19,6 @@ class Shop {
 
     }
 
-    //For Shop we can encode in an array the number of each upgrade
-    //eg [ 20 , 5 , 1 , 0]. We can calculate price and current bonus from this ( in case of
-    //updated info from database)
-
-    //We can use extra decoder/encoder class
-
     public static Shop getInstance(){
         if (single_instance == null)
             single_instance = new Shop();

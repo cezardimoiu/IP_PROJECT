@@ -26,10 +26,6 @@ public class Gameplay extends AppCompatActivity {
     private TextView moneyPerSecText;
     private Button clickBtn;
     private ImageButton settingMenuBtn;
-    /*public static int currentMoneyAmount;
-    public static int currentMoneyIncrease = 2;
-    public int currentMoneyPerSecond = 1;
-    public int currentRefreshTime = 1000; //in ms*/
     private static boolean timerNotSet = true;
     int animX, animY;
     private User myUser = User.getInstance();
@@ -42,6 +38,9 @@ public class Gameplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gameplay);
 
+        //TODO - Must update game info
+        //dataMan.readInfo();
+
 
         ImageView img = (ImageView) findViewById(R.id.clicker);
         //clickBtn = (Button) findViewById(R.id.one);
@@ -51,38 +50,6 @@ public class Gameplay extends AppCompatActivity {
         moneyPerSecText = (TextView) findViewById((R.id.moneyPerSecView));
         moneyPerSecText.setText(myUser.getCurrentMoneyPerSecond() + "$/sec");
 
-
-
-
-        //currentMoneyIncrease = 1;
-        //currentMoneyPerSecond = 1;
-
-        /*settingMenuBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Gameplay.this, SettingMenu.class));
-                plus_one();
-            }
-        });*/
-
-        /*img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(Gameplay.this, Gameplay.class);
-                //clickBtn.setVisibility(View.VISIBLE);
-                Animation a = AnimationUtils.loadAnimation(Gameplay.this, R.anim.coockie_animation);
-                a.setAnimationListener(new SimpleAnimationListener() {
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        addMoney(R.string.clicked);
-                        moneyText.setText(currentMoneyAmount + "$");
-                    }
-                });
-                v.startAnimation(a);
-
-                //clickBtn.setVisibility(View.VISIBLE);
-            }
-        });*/
 
         img.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -114,12 +81,22 @@ public class Gameplay extends AppCompatActivity {
             }
         });
 
+        //Update money every 100ms
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 moneyText.setText(myUser.getCurrentMoneyAmount() + "$");
             }
         }, 0, 100);
+
+        //TODO - Update local memory every 2 minutes
+        Timer timer2 = new Timer();
+        timer2.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                //TODO - Must write info
+                //dataMan.writeInfo();
+            }
+        }, 0, 12000);
     }
 
     @SuppressLint("WrongConstant")
@@ -131,19 +108,13 @@ public class Gameplay extends AppCompatActivity {
         toast.setGravity(Gravity.TOP|Gravity.LEFT, x, y);
         toast.setDuration(0);
         TextView textView = new TextView(this);
-        /*textView.setGravity(Gravity.TOP|Gravity.LEFT);
-        textView.setX(x);
-        textView.setY(y);*/
         textView.setText("+" + stringID + "$");
         textView.setTextSize(30f);
         textView.setShadowLayer(10,0,0,Color.BLACK);
         textView.setTextColor(Color.WHITE);
         toast.setView(textView);
         toast.show();
-        /*Animation a = AnimationUtils.loadAnimation(Gameplay.this, R.anim.money_text_animation);
-        a.reset();
-        textView.clearAnimation();
-        textView.startAnimation(a);*/
+
     }
 
 }
