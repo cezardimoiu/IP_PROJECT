@@ -25,6 +25,7 @@ public class SettingMenu extends AppCompatActivity {
     final DatabaseReference ref = database.getReference("users");
 
     private User user = User.getInstance();
+    private Shop shop = Shop.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +80,11 @@ public class SettingMenu extends AppCompatActivity {
                     ref.child(username).child("currentMoneyPerSecond").setValue(user.getCurrentMoneyPerSecond());
                     ref.child(username).child("goldBars").setValue(user.getGoldBars());
                     ref.child(username).child("totalMoneyThisAscension").setValue(user.getTotalMoneyThisAscension());
+                    user.resetUser();
                     FirebaseAuth.getInstance().signOut();
                     Toast.makeText(SettingMenu.this,
                             "Logging out", Toast.LENGTH_LONG).show();
+                    shop.resetShop();
                     startActivity(new Intent(SettingMenu.this, LoginActivity.class));
                 }
                 else{

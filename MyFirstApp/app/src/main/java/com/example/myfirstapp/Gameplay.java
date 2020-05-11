@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -24,6 +25,7 @@ public class Gameplay extends AppCompatActivity {
     private TextView moneyText;
     private TextView moneyPerSecText;
     private Button clickBtn;
+    private Button shopMenuBtn;
     private ImageButton settingMenuBtn;
     private static boolean timerNotSet = true;
     int animX, animY;
@@ -44,10 +46,11 @@ public class Gameplay extends AppCompatActivity {
         ImageView img = (ImageView) findViewById(R.id.clicker);
         //clickBtn = (Button) findViewById(R.id.one);
         settingMenuBtn = (ImageButton) findViewById(R.id.settingMenuBtn);
+        shopMenuBtn = (Button) findViewById(R.id.shopMenuBtn);
         moneyText = (TextView) findViewById(R.id.moneyView);
         moneyText.setText(myUser.getCurrentMoneyAmount() + "$");
         moneyPerSecText = (TextView) findViewById((R.id.moneyPerSecView));
-        moneyPerSecText.setText(myUser.getCurrentMoneyPerSecond() + "$/sec");
+        moneyPerSecText.setText(myUser.getMoneyPerSecond() + "$/sec");
 
 
         img.setOnTouchListener(new View.OnTouchListener() {
@@ -62,7 +65,7 @@ public class Gameplay extends AppCompatActivity {
                     a.setAnimationListener(new SimpleAnimationListener() {
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            addMoney(Integer.toString(myUser.getCurrentMoneyIncrease()), animX, animY);
+                            addMoney(Integer.toString(myUser.getMoneyPerClick()), animX, animY);
                             moneyText.setText(myUser.getCurrentMoneyAmount() + "$");
                         }
                     });
@@ -76,6 +79,13 @@ public class Gameplay extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Gameplay.this, SettingMenu.class));
+            }
+        });
+
+        shopMenuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Gameplay.this, ShopMenu.class));
             }
         });
 

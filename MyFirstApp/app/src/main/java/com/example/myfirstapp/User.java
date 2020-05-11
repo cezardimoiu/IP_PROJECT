@@ -15,13 +15,14 @@ class User {
     private int clicks;
     private Timer timer;
     private int goldBars;
+    private final double goldBarsBonus = 1.0f;
 
     private User()
     {
         this.clicks = 0;
         this.currentMoneyAmount = 0;
         this.currentMoneyIncrease = 1;
-        this.currentMoneyPerSecond = 1;
+        this.currentMoneyPerSecond = 0;
         this.currentRefreshTime = 1000;
         this.totalMoneyThisAscension = 0;
         this.goldBars = 0;
@@ -29,11 +30,26 @@ class User {
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                currentMoneyAmount += currentMoneyPerSecond ;
+                currentMoneyAmount += currentMoneyPerSecond +
+                        currentMoneyPerSecond * (int)(goldBars * goldBarsBonus);
+                totalMoneyThisAscension += currentMoneyPerSecond +
+                        currentMoneyPerSecond * (int)(goldBars * goldBarsBonus);
                 //moneyText.setText(currentMoneyAmount + "$");
             }
         }, 0, currentRefreshTime);
 
+    }
+
+    public void resetUser()
+    {
+        this.email = null;
+        this.clicks = 0;
+        this.currentMoneyAmount = 0;
+        this.currentMoneyIncrease = 1;
+        this.currentMoneyPerSecond = 0;
+        this.currentRefreshTime = 1000;
+        this.totalMoneyThisAscension = 0;
+        this.goldBars = 0;
     }
 
     public static User getInstance(){
@@ -145,7 +161,10 @@ class User {
 
     public void addMoney()
     {
-        this.currentMoneyAmount += this.currentMoneyIncrease + (int)(goldBars * 0.1f);
+        this.currentMoneyAmount += this.currentMoneyIncrease +
+                this.currentMoneyIncrease * (int)(goldBars * goldBarsBonus);
+        this.totalMoneyThisAscension += this.currentMoneyIncrease +
+                this.currentMoneyIncrease * (int)(goldBars * goldBarsBonus);
         this.clicks ++;
     }
 
@@ -157,6 +176,18 @@ class User {
         this.currentRefreshTime = 0;
         this.currentMoneyPerSecond = 1;
 
+    }
+
+    public int getMoneyPerSecond()
+    {
+        return currentMoneyPerSecond +
+                currentMoneyPerSecond * (int)(goldBars * goldBarsBonus);
+    }
+
+    public int getMoneyPerClick()
+    {
+        return this.currentMoneyIncrease +
+                this.currentMoneyIncrease * (int)(goldBars * goldBarsBonus);
     }
 
     public int getGoldBarIfAscend()

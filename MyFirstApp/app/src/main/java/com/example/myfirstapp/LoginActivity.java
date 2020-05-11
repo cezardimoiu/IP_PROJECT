@@ -40,6 +40,10 @@ public class LoginActivity extends AppCompatActivity {
     protected User user = User.getInstance();
 
     void addNewUser(String email) {
+
+        //TODO - maybe remove this
+        user.resetUser();
+
         String username = email.split("@")[0];
         user.setEmail(email);
         DatabaseReference localRef = ref.child(username);

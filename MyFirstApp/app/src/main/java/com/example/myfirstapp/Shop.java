@@ -19,6 +19,14 @@ class Shop {
 
     }
 
+    public void resetShop()
+    {
+        pricesClick = new int[]{10, 500, 2500, 10000};
+        clickBonus = new int[]{1, 5, 20, 100};
+        pricesSecond = new int[]{50, 1000, 5000, 20000};
+        secondBonus = new int[]{1, 5, 20, 100};
+    }
+
     public static Shop getInstance(){
         if (single_instance == null)
             single_instance = new Shop();
