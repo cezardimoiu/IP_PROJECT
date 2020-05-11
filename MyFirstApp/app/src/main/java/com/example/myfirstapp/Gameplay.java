@@ -23,14 +23,17 @@ import java.util.TimerTask;
 public class Gameplay extends AppCompatActivity {
 
     private TextView moneyText;
+    private TextView moneyPerSecText;
     private Button clickBtn;
     private ImageButton settingMenuBtn;
-    public static int currentMoneyAmount;
+    /*public static int currentMoneyAmount;
     public static int currentMoneyIncrease = 2;
     public int currentMoneyPerSecond = 1;
-    public int currentRefreshTime = 1000; //in ms
+    public int currentRefreshTime = 1000; //in ms*/
     private static boolean timerNotSet = true;
     int animX, animY;
+    private User myUser = User.getInstance();
+    private DataManipulator dataMan = DataManipulator.getInstance();
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -39,11 +42,17 @@ public class Gameplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gameplay);
 
+
         ImageView img = (ImageView) findViewById(R.id.clicker);
         //clickBtn = (Button) findViewById(R.id.one);
         settingMenuBtn = (ImageButton) findViewById(R.id.settingMenuBtn);
         moneyText = (TextView) findViewById(R.id.moneyView);
-        moneyText.setText(currentMoneyAmount + "$");
+        moneyText.setText(myUser.getCurrentMoneyAmount() + "$");
+        moneyPerSecText = (TextView) findViewById((R.id.moneyPerSecView));
+        moneyPerSecText.setText(myUser.getCurrentMoneyPerSecond() + "$/sec");
+
+
+
 
         //currentMoneyIncrease = 1;
         //currentMoneyPerSecond = 1;
@@ -88,8 +97,8 @@ public class Gameplay extends AppCompatActivity {
                     a.setAnimationListener(new SimpleAnimationListener() {
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            addMoney(Integer.toString(currentMoneyIncrease), animX, animY);
-                            moneyText.setText(currentMoneyAmount + "$");
+                            addMoney(Integer.toString(myUser.getCurrentMoneyIncrease()), animX, animY);
+                            moneyText.setText(myUser.getCurrentMoneyAmount() + "$");
                         }
                     });
                     v.startAnimation(a);
@@ -106,27 +115,18 @@ public class Gameplay extends AppCompatActivity {
         });
 
         Timer timer = new Timer();
-        if ( timerNotSet ) {
-            timerNotSet = false;
-            timer.scheduleAtFixedRate(new TimerTask() {
-                public void run() {
-                    currentMoneyAmount += currentMoneyPerSecond;
-                    //moneyText.setText(currentMoneyAmount + "$");
-                }
-            }, 0, currentRefreshTime);
-        }
-
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                moneyText.setText(currentMoneyAmount + "$");
+                moneyText.setText(myUser.getCurrentMoneyAmount() + "$");
             }
-        }, 0, currentRefreshTime / 5);
-
+        }, 0, 100);
     }
 
     @SuppressLint("WrongConstant")
     private void addMoney(String stringID, int x, int y){
-        currentMoneyAmount += currentMoneyIncrease;
+        myUser.addMoney();
+
+
         Toast toast = new Toast(this);
         toast.setGravity(Gravity.TOP|Gravity.LEFT, x, y);
         toast.setDuration(0);

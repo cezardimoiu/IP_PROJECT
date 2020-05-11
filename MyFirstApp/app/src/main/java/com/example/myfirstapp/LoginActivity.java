@@ -36,9 +36,12 @@ public class LoginActivity extends AppCompatActivity {
 
     @SuppressLint("WrongViewCast")
     void addNewUser(String email) {
-        User user = new User(email, 2);
+        User user = User.getInstance();
+        user.setEmail(email);
+        user.setClicks(2);
         ref.push().setValue(user);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
