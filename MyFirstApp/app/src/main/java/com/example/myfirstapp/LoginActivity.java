@@ -17,8 +17,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -32,11 +35,10 @@ public class LoginActivity extends AppCompatActivity {
     public boolean isLogged;
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference ref = database.getReference("users");
+    final DatabaseReference ref = database.getReference("users");
 
     User user = User.getInstance();
 
-    @SuppressLint("WrongViewCast")
     void addNewUser(String email) {
         String username = email.split("@")[0];
         user.setEmail(email);
@@ -44,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         user.setClicks(0);
         int rez[] = user.getAllUserInfo();
         localRef.child("goldBars").setValue(rez[0]);
-        localRef.child("totalMoneyThisscension").setValue(rez[1]);
+        localRef.child("totalMoneyThisAscension").setValue(rez[1]);
         localRef.child("clicks").setValue(rez[2]);
         localRef.child("currentMoneyIncrease").setValue(rez[3]);
         localRef.child("currentMoneyAmount").setValue(rez[4]);
@@ -72,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(LoginActivity.this,
                         "Logging in...", Toast.LENGTH_LONG).show();
+
                 startLogin();
             }
         });
@@ -98,8 +101,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void startLogin() {
-
-        String email = emailText.getText().toString();
+        final String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
@@ -117,6 +119,27 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this,
                                         "Login Successful", Toast.LENGTH_LONG).show();
 
+                                String username = email.split("@")[0];
+                                user.setEmail(email);
+                                DatabaseReference localRef = ref.child(username);
+                                if (localRef != null) {
+                                    localRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            user.setClicks(((Long) dataSnapshot.child("clicks").getValue()).intValue());
+                                            user.setCurrentMoneyAmount(((Long) dataSnapshot.child("currentMoneyAmount").getValue()).intValue());
+                                            user.setCurrentMoneyIncrease(((Long) dataSnapshot.child("currentMoneyIncrease").getValue()).intValue());
+                                            user.setCurrentMoneyPerSecond(((Long) dataSnapshot.child("currentMoneyPerSecond").getValue()).intValue());
+                                            user.setGoldBars(((Long) dataSnapshot.child("goldBars").getValue()).intValue());
+                                            user.setTotalMoneyThisAscension(((Long) dataSnapshot.child("totalMoneyThisAscension").getValue()).intValue());
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
                                 isLogged = true;
                                 startActivity(new Intent(LoginActivity.this, Gameplay.class));
 
@@ -163,11 +186,28 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
         if (currentUser != null) {
             Toast.makeText(LoginActivity.this,
                     "Already logged in...", Toast.LENGTH_LONG).show();
+            String username = currentUser.getEmail().split("@")[0];
+            user.setEmail(currentUser.getEmail());
+            DatabaseReference localRef = ref.child(username);
+            localRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    user.setClicks(((Long)dataSnapshot.child("clicks").getValue()).intValue());
+                    user.setCurrentMoneyAmount(((Long)dataSnapshot.child("currentMoneyAmount").getValue()).intValue());
+                    user.setCurrentMoneyIncrease(((Long)dataSnapshot.child("currentMoneyIncrease").getValue()).intValue());
+                    user.setCurrentMoneyPerSecond(((Long)dataSnapshot.child("currentMoneyPerSecond").getValue()).intValue());
+                    user.setGoldBars(((Long)dataSnapshot.child("goldBars").getValue()).intValue());
+                    user.setTotalMoneyThisAscension(((Long)dataSnapshot.child("totalMoneyThisAscension").getValue()).intValue());
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
             isLogged = true;
             startActivity(new Intent(LoginActivity.this, Gameplay.class));
 

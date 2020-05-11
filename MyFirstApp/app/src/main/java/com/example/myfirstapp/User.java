@@ -120,6 +120,16 @@ class User {
         this.currentRefreshTime = currentRefreshTime;
     }
 
+    public void setGoldBars(int goldBars)
+    {
+        this.goldBars = goldBars;
+    }
+
+    public void setTotalMoneyThisAscension(int totalMoneyThisAscension)
+    {
+        this.totalMoneyThisAscension = totalMoneyThisAscension;
+    }
+
     public void setUser(String email, int data[])
     {
         this.email = email;
