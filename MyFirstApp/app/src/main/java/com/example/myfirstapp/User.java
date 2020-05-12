@@ -1,5 +1,7 @@
 package com.example.myfirstapp;
 
+import com.google.firebase.database.DataSnapshot;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -212,6 +214,16 @@ class User {
             return true;
         }
         return false;
+    }
+
+    public void getDataFromDatabase(DataSnapshot dataSnapshot) {
+        User user = User.getInstance();
+        user.setClicks(((Long)dataSnapshot.child("clicks").getValue()).intValue());
+        user.setCurrentMoneyAmount(((Long)dataSnapshot.child("currentMoneyAmount").getValue()).intValue());
+        user.setCurrentMoneyIncrease(((Long)dataSnapshot.child("currentMoneyIncrease").getValue()).intValue());
+        user.setCurrentMoneyPerSecond(((Long)dataSnapshot.child("currentMoneyPerSecond").getValue()).intValue());
+        user.setGoldBars(((Long)dataSnapshot.child("goldBars").getValue()).intValue());
+        user.setTotalMoneyThisAscension(((Long)dataSnapshot.child("totalMoneyThisAscension").getValue()).intValue());
     }
 
 }

@@ -31,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button guestBtn;
     private EditText emailText;
     private EditText passwordText;
-    //private Button logOutBtn;
     public boolean isLogged;
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -40,10 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     protected User user = User.getInstance();
 
     void addNewUser(String email) {
-
-        //TODO - maybe remove this
         user.resetUser();
-
         String username = email.split("@")[0];
         user.setEmail(email);
         DatabaseReference localRef = ref.child(username);
@@ -131,12 +127,7 @@ public class LoginActivity extends AppCompatActivity {
                                     localRef.addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            user.setClicks(((Long) dataSnapshot.child("clicks").getValue()).intValue());
-                                            user.setCurrentMoneyAmount(((Long) dataSnapshot.child("currentMoneyAmount").getValue()).intValue());
-                                            user.setCurrentMoneyIncrease(((Long) dataSnapshot.child("currentMoneyIncrease").getValue()).intValue());
-                                            user.setCurrentMoneyPerSecond(((Long) dataSnapshot.child("currentMoneyPerSecond").getValue()).intValue());
-                                            user.setGoldBars(((Long) dataSnapshot.child("goldBars").getValue()).intValue());
-                                            user.setTotalMoneyThisAscension(((Long) dataSnapshot.child("totalMoneyThisAscension").getValue()).intValue());
+                                            user.getDataFromDatabase(dataSnapshot);
                                         }
 
                                         @Override
@@ -200,12 +191,7 @@ public class LoginActivity extends AppCompatActivity {
             localRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    user.setClicks(((Long)dataSnapshot.child("clicks").getValue()).intValue());
-                    user.setCurrentMoneyAmount(((Long)dataSnapshot.child("currentMoneyAmount").getValue()).intValue());
-                    user.setCurrentMoneyIncrease(((Long)dataSnapshot.child("currentMoneyIncrease").getValue()).intValue());
-                    user.setCurrentMoneyPerSecond(((Long)dataSnapshot.child("currentMoneyPerSecond").getValue()).intValue());
-                    user.setGoldBars(((Long)dataSnapshot.child("goldBars").getValue()).intValue());
-                    user.setTotalMoneyThisAscension(((Long)dataSnapshot.child("totalMoneyThisAscension").getValue()).intValue());
+                    user.getDataFromDatabase(dataSnapshot);
                 }
 
                 @Override

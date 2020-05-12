@@ -96,7 +96,8 @@ public class Gameplay extends AppCompatActivity {
                 moneyText.setText(myUser.getCurrentMoneyAmount() + "$");
 
                 //TODO - update moneyPerSec
-                //moneyPerSecText.setText(myUser.getCurrentMoneyPerSecond() + "$/sec");
+                //TODO - fix
+               // moneyPerSecText.setText(myUser.getCurrentMoneyPerSecond() + "$/sec");
             }
         }, 0, 100);
 
