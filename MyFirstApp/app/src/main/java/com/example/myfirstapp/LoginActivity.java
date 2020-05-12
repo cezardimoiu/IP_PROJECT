@@ -17,8 +17,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,17 +31,28 @@ public class LoginActivity extends AppCompatActivity {
     private Button guestBtn;
     private EditText emailText;
     private EditText passwordText;
-    //private Button logOutBtn;
     public boolean isLogged;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference ref = database.getReference("Users_Hash");
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference ref = database.getReference("users");
 
-    @SuppressLint("WrongViewCast")
+    protected User user = User.getInstance();
+
     void addNewUser(String email) {
-        User user = new User(email, 2);
-        ref.push().setValue(user);
+        user.resetUser();
+        String username = email.split("@")[0];
+        user.setEmail(email);
+        DatabaseReference localRef = ref.child(username);
+        user.setClicks(0);
+        int rez[] = user.getAllUserInfo();
+        localRef.child("goldBars").setValue(rez[0]);
+        localRef.child("totalMoneyThisAscension").setValue(rez[1]);
+        localRef.child("clicks").setValue(rez[2]);
+        localRef.child("currentMoneyIncrease").setValue(rez[3]);
+        localRef.child("currentMoneyAmount").setValue(rez[4]);
+        localRef.child("currentMoneyPerSecond").setValue(rez[5]);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +60,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         loginBtn = (Button) findViewById(R.id.loginBtn);
-        //logOutBtn =  (Button) findViewById(R.id.logout);
         regBtn = (Button) findViewById(R.id.regBtn);
         guestBtn = (Button) findViewById(R.id.guestBtn);
-
         emailText = (EditText) findViewById(R.id.emailEditText);
         passwordText = (EditText) findViewById(R.id.passwordEditText);
 
@@ -62,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(LoginActivity.this,
                         "Logging in...", Toast.LENGTH_LONG).show();
+
                 startLogin();
             }
         });
@@ -82,26 +95,14 @@ public class LoginActivity extends AppCompatActivity {
                 isLogged = false;
                 Toast.makeText(LoginActivity.this,
                         "Playing as guest...", Toast.LENGTH_LONG).show();
-
+                // TODO - get data from file for guest user
                 startActivity(new Intent(LoginActivity.this, Gameplay.class));
-
             }
         });
-
-        /*logOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(LoginActivity.this,
-                        "Registering...", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(LoginActivity.this, Gameplay.class));
-            }
-        });*/
-
     }
 
     private void startLogin() {
-
-        String email = emailText.getText().toString();
+        final String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
@@ -119,6 +120,22 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this,
                                         "Login Successful", Toast.LENGTH_LONG).show();
 
+                                String username = email.split("@")[0];
+                                user.setEmail(email);
+                                DatabaseReference localRef = ref.child(username);
+                                if (localRef != null) {
+                                    localRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            user.getDataFromDatabase(dataSnapshot);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                }
                                 isLogged = true;
                                 startActivity(new Intent(LoginActivity.this, Gameplay.class));
 
@@ -165,14 +182,28 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
         if (currentUser != null) {
             Toast.makeText(LoginActivity.this,
                     "Already logged in...", Toast.LENGTH_LONG).show();
+            String username = currentUser.getEmail().split("@")[0];
+            user.setEmail(currentUser.getEmail());
+            DatabaseReference localRef = ref.child(username);
+            localRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    user.getDataFromDatabase(dataSnapshot);
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
             isLogged = true;
             startActivity(new Intent(LoginActivity.this, Gameplay.class));
-
+        } else {
+            // TODO - get data from file for guest user
+            user.resetUser();
         }
     }
 

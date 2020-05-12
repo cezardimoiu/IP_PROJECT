@@ -1,10 +1,13 @@
 TODO:
 
 Save data if you close the app.
+(read+write in data manipulator)
 
 Add help, stats, settings.
 
 Add shops / powerups.
+(shop logic is done, need interface for shop)
+
 
 
 BUGS:

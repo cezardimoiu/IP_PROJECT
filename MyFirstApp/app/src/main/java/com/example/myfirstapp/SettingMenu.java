@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SettingMenu extends AppCompatActivity {
 
@@ -19,6 +21,11 @@ public class SettingMenu extends AppCompatActivity {
     private Button settingsBtn;
     private Button logoutBtn;
     private FirebaseAuth mAuth;
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference ref = database.getReference("users");
+
+    private User user = User.getInstance();
+    private Shop shop = Shop.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +72,19 @@ public class SettingMenu extends AppCompatActivity {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (mAuth.getCurrentUser() != null) {
+                    String username = mAuth.getCurrentUser().getEmail().split("@")[0];
+                    ref.child(username).child("clicks").setValue(user.getClicks());
+                    ref.child(username).child("currentMoneyAmount").setValue(user.getCurrentMoneyAmount());
+                    ref.child(username).child("currentMoneyIncrease").setValue(user.getCurrentMoneyIncrease());
+                    ref.child(username).child("currentMoneyPerSecond").setValue(user.getCurrentMoneyPerSecond());
+                    ref.child(username).child("goldBars").setValue(user.getGoldBars());
+                    ref.child(username).child("totalMoneyThisAscension").setValue(user.getTotalMoneyThisAscension());
+                    user.resetUser();
                     FirebaseAuth.getInstance().signOut();
                     Toast.makeText(SettingMenu.this,
                             "Logging out", Toast.LENGTH_LONG).show();
+                    shop.resetShop();
                     startActivity(new Intent(SettingMenu.this, LoginActivity.class));
                 }
                 else{
