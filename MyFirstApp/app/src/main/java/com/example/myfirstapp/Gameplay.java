@@ -41,7 +41,7 @@ public class Gameplay extends AppCompatActivity {
 
         //TODO - Must update game info
         //dataMan.readInfo();
-        
+
         ImageView img = (ImageView) findViewById(R.id.clicker);
         //clickBtn = (Button) findViewById(R.id.one);
         settingMenuBtn = (ImageButton) findViewById(R.id.settingMenuBtn);
