@@ -41,8 +41,7 @@ public class Gameplay extends AppCompatActivity {
 
         //TODO - Must update game info
         //dataMan.readInfo();
-
-
+        
         ImageView img = (ImageView) findViewById(R.id.clicker);
         //clickBtn = (Button) findViewById(R.id.one);
         settingMenuBtn = (ImageButton) findViewById(R.id.settingMenuBtn);
@@ -93,11 +92,14 @@ public class Gameplay extends AppCompatActivity {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                moneyText.setText(myUser.getCurrentMoneyAmount() + "$");
-
-                //TODO - update moneyPerSec
-                //TODO - fix
-               // moneyPerSecText.setText(myUser.getCurrentMoneyPerSecond() + "$/sec");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        moneyText.setText(myUser.getCurrentMoneyAmount() + "$");
+                        moneyPerSecText.setText(myUser.getCurrentMoneyPerSecond() + "$/sec");
+                    }
+                });
+               ;
             }
         }, 0, 100);
 

@@ -70,11 +70,14 @@
         android:outlineSpotShadowColor="#FFFFFF"
         android:shadowColor="#100F0F"
         android:shadowRadius="4"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moneyView" />
+        app:layout_constraintTop_toBottomOf="@+id/moneyView"
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/shopMenuBtn"
