@@ -176,7 +176,7 @@ class User {
         this.goldBars += this.totalMoneyThisAscension/(this.goldBars/10 + 100);
         this.totalMoneyThisAscension = 0;
         this.currentRefreshTime = 0;
-        this.currentMoneyPerSecond = 1;
+        this.currentMoneyPerSecond = 0;
 
     }
 

@@ -37,9 +37,11 @@ public class LoginActivity extends AppCompatActivity {
     final DatabaseReference ref = database.getReference("users");
 
     protected User user = User.getInstance();
+    protected Shop shop = Shop.getInstance();
 
     void addNewUser(String email) {
         user.resetUser();
+        shop.resetShop();
         String username = email.split("@")[0];
         user.setEmail(email);
         DatabaseReference localRef = ref.child(username);
@@ -204,6 +206,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             // TODO - get data from file for guest user
             user.resetUser();
+            shop.resetShop();
         }
     }
 

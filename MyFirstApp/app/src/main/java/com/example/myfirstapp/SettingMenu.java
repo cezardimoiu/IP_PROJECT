@@ -85,6 +85,7 @@ public class SettingMenu extends AppCompatActivity {
                     Toast.makeText(SettingMenu.this,
                             "Logging out", Toast.LENGTH_LONG).show();
                     shop.resetShop();
+
                     startActivity(new Intent(SettingMenu.this, LoginActivity.class));
                 }
                 else{
