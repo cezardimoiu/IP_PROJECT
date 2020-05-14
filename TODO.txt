@@ -9,6 +9,12 @@ Add shops / powerups.
 (shop logic is done, need interface for shop)
 
 
+(1)change where game gets info from local files !!! 
+(Data updates after ascending
+and it shouldn't)
 
 BUGS:
+
+ASCEND DOESN't reset shop always ??? CAUSED BY (1)
+
 
