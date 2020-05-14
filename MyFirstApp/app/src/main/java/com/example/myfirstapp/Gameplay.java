@@ -47,8 +47,7 @@ public class Gameplay extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-        //TODO - Must update game info
-
+        //TODO - MOVE THIS ASCENSION BUG
         if (mAuth.getCurrentUser() == null)
             dataMan.getSharedPrefs(getSharedPreferences(SHARED_PREFS, 0));
 
