@@ -53,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         localRef.child("currentMoneyIncrease").setValue(rez[3]);
         localRef.child("currentMoneyAmount").setValue(rez[4]);
         localRef.child("currentMoneyPerSecond").setValue(rez[5]);
+        localRef.child("shop").child("priceClick").setValue(shop.getListClickPrice());
+        localRef.child("shop").child("priceSecond").setValue(shop.getListPriceSecond());
     }
 
     @Override
@@ -130,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             user.getDataFromDatabase(dataSnapshot);
+                                            shop.getDataFromDatabase(dataSnapshot);
                                         }
 
                                         @Override

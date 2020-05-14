@@ -13,6 +13,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.LinkedList;
+
 public class SettingMenu extends AppCompatActivity {
 
     private ImageButton backBtn;
@@ -80,11 +82,15 @@ public class SettingMenu extends AppCompatActivity {
                     ref.child(username).child("currentMoneyPerSecond").setValue(user.getCurrentMoneyPerSecond());
                     ref.child(username).child("goldBars").setValue(user.getGoldBars());
                     ref.child(username).child("totalMoneyThisAscension").setValue(user.getTotalMoneyThisAscension());
+                    ref.child(username).child("shop").child("priceClick").setValue(shop.getListClickPrice());
+                    ref.child(username).child("shop").child("priceSecond").setValue(shop.getListPriceSecond());
+
                     user.resetUser();
+                    shop.resetShop();
+
                     FirebaseAuth.getInstance().signOut();
                     Toast.makeText(SettingMenu.this,
                             "Logging out", Toast.LENGTH_LONG).show();
-                    shop.resetShop();
 
                     startActivity(new Intent(SettingMenu.this, LoginActivity.class));
                 }

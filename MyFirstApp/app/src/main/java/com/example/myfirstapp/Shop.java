@@ -1,5 +1,11 @@
 package com.example.myfirstapp;
 
+import com.google.firebase.database.DataSnapshot;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 class Shop {
     private static Shop single_instance = null;
     private final double percentageIncrease = 1.15;
@@ -16,7 +22,6 @@ class Shop {
         clickBonus = new int[]{1, 5, 20, 100};
         pricesSecond = new int[]{50, 1000, 5000, 20000};
         secondBonus = new int[]{1, 5, 20, 100};
-
     }
 
     public void resetShop()
@@ -51,6 +56,20 @@ class Shop {
         return rez;
     }
 
+    public void setPricesClick(LinkedList<Integer> list)
+    {
+        for (int i = 0; i < list.size(); i++) {
+            pricesClick[i] = list.get(i);
+        }
+    }
+
+    public void setPricesSecond(LinkedList<Integer> list)
+    {
+        for (int i = 0; i < list.size(); i++) {
+            pricesSecond[i] = list.get(i);
+        }
+    }
+
     public int getClickPrice(int index)
     {
         return this.pricesClick[index];
@@ -76,6 +95,24 @@ class Shop {
         return this.percentageIncrease;
     }
 
+    public LinkedList<Integer> getListClickPrice()
+    {
+        LinkedList<Integer> list = new LinkedList<>();
+        for (int i = 0; i < pricesClick.length; i++) {
+            list.add(pricesClick[i]);
+        }
+        return list;
+    }
+
+    public LinkedList<Integer> getListPriceSecond()
+    {
+        LinkedList<Integer> list = new LinkedList<>();
+        for (int i = 0; i < pricesSecond.length; i++) {
+            list.add(pricesSecond[i]);
+        }
+        return list;
+    }
+
     public boolean buyClick(int index)
     {
         if (myUser.purchaseUpgrade(pricesClick[index])){
@@ -94,5 +131,17 @@ class Shop {
             return true;
         }
         return false;
+    }
+
+    public void getDataFromDatabase(DataSnapshot dataSnapshot) {
+        Shop shop = Shop.getInstance();
+        ArrayList<Integer> pricesClick = (ArrayList<Integer>)dataSnapshot.child("shop").child("priceClick").getValue();
+        ArrayList<Integer> secondClick = (ArrayList<Integer>)dataSnapshot.child("shop").child("priceSecond").getValue();
+        for (int i = 0; i < pricesClick.size(); i++) {
+            this.pricesClick[i] = pricesClick.get(i);
+        }
+        for (int i = 0; i < secondClick.size(); i++) {
+            this.pricesSecond[i] = secondClick.get(i);
+        }
     }
 }
