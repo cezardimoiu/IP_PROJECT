@@ -197,6 +197,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     user.getDataFromDatabase(dataSnapshot);
+                    shop.getDataFromDatabase(dataSnapshot);
                 }
 
                 @Override

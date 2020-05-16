@@ -135,13 +135,15 @@ class Shop {
 
     public void getDataFromDatabase(DataSnapshot dataSnapshot) {
         Shop shop = Shop.getInstance();
-        ArrayList<Integer> pricesClick = (ArrayList<Integer>)dataSnapshot.child("shop").child("priceClick").getValue();
-        ArrayList<Integer> secondClick = (ArrayList<Integer>)dataSnapshot.child("shop").child("priceSecond").getValue();
+        ArrayList<Long> pricesClick = (ArrayList<Long>)dataSnapshot.child("shop").child("priceClick").getValue();
+        ArrayList<Long> secondClick = (ArrayList<Long>)dataSnapshot.child("shop").child("priceSecond").getValue();
         for (int i = 0; i < pricesClick.size(); i++) {
-            this.pricesClick[i] = pricesClick.get(i);
+            long x = pricesClick.get(i);
+            this.pricesClick[i] = (int) x;
         }
         for (int i = 0; i < secondClick.size(); i++) {
-            this.pricesSecond[i] = secondClick.get(i);
+            long x = secondClick.get(i);
+            this.pricesSecond[i] = (int) x;
         }
     }
 }
