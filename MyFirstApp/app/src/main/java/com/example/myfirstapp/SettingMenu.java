@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,11 +18,11 @@ import java.util.LinkedList;
 
 public class SettingMenu extends AppCompatActivity {
 
-    private ImageButton backBtn;
-    private Button helpBtn;
-    private Button statsBtn;
-    private Button settingsBtn;
-    private Button logoutBtn;
+    private ImageView backBtn;
+    private ImageView helpBtn;
+    private ImageView statsBtn;
+    private ImageView settingsBtn;
+    private ImageView logoutBtn;
     private FirebaseAuth mAuth;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference ref = database.getReference("users");
@@ -35,11 +36,11 @@ public class SettingMenu extends AppCompatActivity {
         setContentView(R.layout.activity_setting_menu);
         mAuth = FirebaseAuth.getInstance();
 
-        backBtn = (ImageButton) findViewById(R.id.backBtn);
-        helpBtn = (Button) findViewById(R.id.helpBtn);
-        statsBtn = (Button) findViewById(R.id.statsBtn);
-        settingsBtn = (Button) findViewById(R.id.settingsBtn);
-        logoutBtn = (Button) findViewById(R.id.logoutBtn);
+        backBtn = (ImageView) findViewById(R.id.backBtn);
+        helpBtn = (ImageView) findViewById(R.id.helpBtn);
+        statsBtn = (ImageView) findViewById(R.id.statsBtn);
+        settingsBtn = (ImageView) findViewById(R.id.settingsBtn);
+        logoutBtn = (ImageView) findViewById(R.id.logoutBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,24 +51,23 @@ public class SettingMenu extends AppCompatActivity {
         helpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SettingMenu.this,
-                        "Help btn works", Toast.LENGTH_LONG).show();
+                /*Toast.makeText(SettingMenu.this,
+                        "Help btn works", Toast.LENGTH_LONG).show();*/
+                startActivity(new Intent(SettingMenu.this, HelpActivity.class));
             }
         });
 
         statsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SettingMenu.this,
-                        "Stats btn works", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(SettingMenu.this, InfoActivity.class));
             }
         });
 
         settingsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SettingMenu.this,
-                        "Settings btn works", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(SettingMenu.this, SActivity.class));
             }
         });
 
