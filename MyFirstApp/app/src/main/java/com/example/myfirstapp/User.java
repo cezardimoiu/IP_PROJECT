@@ -204,7 +204,6 @@ class User {
         this.currentMoneyPerSecond = data[6];
     }
 
-
     public void addMoney()
     {
         int buffer = this.getMoneyPerClick();
@@ -217,12 +216,12 @@ class User {
     public void ascendUser()
     {
         this.currentMoneyAmount = 0;
+        this.totalMoneyEver += this.totalMoneyThisAscension;
         this.goldBars += this.totalMoneyThisAscension/(this.goldBars/5 + 100);
         this.totalMoneyThisAscension = 0;
         this.currentRefreshTime = 0;
         this.currentMoneyPerSecond = 0;
         this.currentMoneyIncrease = 1;
-
     }
 
     public int getMoneyPerSecond()
@@ -276,6 +275,7 @@ class User {
         user.setCurrentMoneyPerSecond(((Long)dataSnapshot.child("currentMoneyPerSecond").getValue()).intValue());
         user.setGoldBars(((Long)dataSnapshot.child("goldBars").getValue()).intValue());
         user.setTotalMoneyThisAscension(((Long)dataSnapshot.child("totalMoneyThisAscension").getValue()).intValue());
+        user.setTotalMoneyEver(((Long)dataSnapshot.child("totalMoneyEver").getValue()).intValue());
     }
 
     public void setPowerClickDuration(){

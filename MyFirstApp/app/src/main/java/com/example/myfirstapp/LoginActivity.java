@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         localRef.child("currentMoneyIncrease").setValue(rez[3]);
         localRef.child("currentMoneyAmount").setValue(rez[4]);
         localRef.child("currentMoneyPerSecond").setValue(rez[5]);
+        localRef.child("totalMoneyEver").setValue(user.getTotalMoneyEver());
         localRef.child("shop").child("priceClick").setValue(shop.getListClickPrice());
         localRef.child("shop").child("priceSecond").setValue(shop.getListPriceSecond());
     }

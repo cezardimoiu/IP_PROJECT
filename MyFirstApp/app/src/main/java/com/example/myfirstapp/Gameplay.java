@@ -48,8 +48,6 @@ public class Gameplay extends AppCompatActivity {
         setContentView(R.layout.activity_gameplay);
         mAuth = FirebaseAuth.getInstance();
 
-
-
         ImageView img = (ImageView) findViewById(R.id.clicker);
         //clickBtn = (Button) findViewById(R.id.one);
         settingMenuBtn = (ImageButton) findViewById(R.id.settingMenuBtn);
@@ -61,7 +59,6 @@ public class Gameplay extends AppCompatActivity {
 
         powerClickBtn = (ImageButton) findViewById(R.id.powerClickBtn);
         powerSecondBtn = (ImageButton) findViewById(R.id.powerSecondBtn);
-
 
         img.setOnTouchListener(new View.OnTouchListener() {
             @Override

@@ -82,6 +82,7 @@ public class SettingMenu extends AppCompatActivity {
                     ref.child(username).child("currentMoneyPerSecond").setValue(user.getCurrentMoneyPerSecond());
                     ref.child(username).child("goldBars").setValue(user.getGoldBars());
                     ref.child(username).child("totalMoneyThisAscension").setValue(user.getTotalMoneyThisAscension());
+                    ref.child(username).child("totalMoneyEver").setValue(user.getTotalMoneyEver());
                     ref.child(username).child("shop").child("priceClick").setValue(shop.getListClickPrice());
                     ref.child(username).child("shop").child("priceSecond").setValue(shop.getListPriceSecond());
 
