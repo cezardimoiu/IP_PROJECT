@@ -90,6 +90,7 @@ public class SettingMenu extends AppCompatActivity {
                     ref.child(username).child("shop").child("priceClick").setValue(shop.getListClickPrice());
                     ref.child(username).child("shop").child("priceSecond").setValue(shop.getListPriceSecond());
 
+                    database.getReference("leaderboard").child(username).setValue(user.getTotalMoneyEver());
                     user.resetUser();
                     shop.resetShop();
 

@@ -20,6 +20,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -41,6 +43,9 @@ public class Gameplay extends AppCompatActivity {
     private static final String SHARED_PREFS =  "Prefs";
     private int data[][];
 
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    final DatabaseReference ref = database.getReference("users");
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +54,6 @@ public class Gameplay extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         ImageView img = (ImageView) findViewById(R.id.clicker);
-        //clickBtn = (Button) findViewById(R.id.one);
         settingMenuBtn = (ImageButton) findViewById(R.id.settingMenuBtn);
         shopMenuBtn = (Button) findViewById(R.id.shopMenuBtn);
         moneyText = (TextView) findViewById(R.id.moneyView);
