@@ -216,7 +216,6 @@ class User {
     public void ascendUser()
     {
         this.currentMoneyAmount = 0;
-        this.totalMoneyEver += this.totalMoneyThisAscension;
         this.goldBars += this.totalMoneyThisAscension/(this.goldBars/5 + 100);
         this.totalMoneyThisAscension = 0;
         this.currentRefreshTime = 0;
