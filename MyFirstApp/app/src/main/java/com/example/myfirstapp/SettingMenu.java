@@ -99,7 +99,7 @@ public class SettingMenu extends AppCompatActivity {
 
                     startActivity(new Intent(SettingMenu.this, LoginActivity.class));
                 }
-                else{
+                else {
                     Toast.makeText(SettingMenu.this,
                             "You are currently a Guest", Toast.LENGTH_LONG).show();
                 }
@@ -110,7 +110,13 @@ public class SettingMenu extends AppCompatActivity {
         leaderboardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (mAuth.getCurrentUser() != null) {
+                    //TODO 
+                }
+                else {
+                    Toast.makeText(SettingMenu.this,
+                            "You are currently a Guest", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
