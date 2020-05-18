@@ -39,10 +39,10 @@ public class InfoActivity extends AppCompatActivity {
                 startActivity(new Intent(InfoActivity.this, SettingMenu.class));
             }
         });
-        moneyText.setText("Your current money amount is: " + myUser.getCurrentMoneyAmount() + "$");
+        moneyText.setText("Your total ever money amount is: " + myUser.getTotalMoneyEver() + "$");
         clicksText.setText("Your current number of clicks is: " + myUser.getClicks());
         goldBarsText.setText("Your current number of gold bars is: " + myUser.getGoldBars());
-        Sec.setText("Your current money/sec value is: " + myUser.getCurrentMoneyPerSecond());
+        Sec.setText("Your current money/sec value is: " + myUser.getCurrentMoneyIncrease());
         moneyClick.setText("Your current money/click is: " + myUser.getMoneyPerClick());
     }
 }

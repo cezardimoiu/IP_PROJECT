@@ -30,6 +30,8 @@ public class Gameplay extends AppCompatActivity {
     private Button clickBtn;
     private Button shopMenuBtn;
     private ImageButton settingMenuBtn;
+    private ImageButton powerClickBtn;
+    private ImageButton powerSecondBtn;
     private static boolean timerNotSet = true;
     int animX, animY;
     private User myUser = User.getInstance();
@@ -47,9 +49,6 @@ public class Gameplay extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-        //TODO - MOVE THIS ASCENSION BUG
-        if (mAuth.getCurrentUser() == null)
-            dataMan.getSharedPrefs(getSharedPreferences(SHARED_PREFS, 0));
 
         ImageView img = (ImageView) findViewById(R.id.clicker);
         //clickBtn = (Button) findViewById(R.id.one);
@@ -59,6 +58,9 @@ public class Gameplay extends AppCompatActivity {
         moneyText.setText(myUser.getCurrentMoneyAmount() + "$");
         moneyPerSecText = (TextView) findViewById((R.id.moneyPerSecView));
         moneyPerSecText.setText(myUser.getMoneyPerSecond() + "$/sec");
+
+        powerClickBtn = (ImageButton) findViewById(R.id.powerClickBtn);
+        powerSecondBtn = (ImageButton) findViewById(R.id.powerSecondBtn);
 
 
         img.setOnTouchListener(new View.OnTouchListener() {
@@ -80,6 +82,37 @@ public class Gameplay extends AppCompatActivity {
                     v.startAnimation(a);
                 }
                 return true;
+            }
+        });
+
+        powerClickBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!myUser.isClickCooldown()){
+                    myUser.setPowerClickDuration();
+                    Toast.makeText(Gameplay.this,
+                            "Double Money/Click for 60 sec", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(Gameplay.this,
+                            "Power on cooldown", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        powerSecondBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!myUser.isSecondCooldown()){
+                    myUser.setPowerSecondDuration();
+                    Toast.makeText(Gameplay.this,
+                            "Double Money/Sec for 60 sec", Toast.LENGTH_LONG).show();
+                    moneyPerSecText.setText(myUser.getMoneyPerSecond() + "$/sec");
+                }
+                else{
+                    Toast.makeText(Gameplay.this,
+                            "Power on cooldown", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

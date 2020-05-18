@@ -13,11 +13,21 @@ class User {
     private int currentMoneyIncrease;
     private int currentMoneyPerSecond;
     private int currentRefreshTime; //in ms
+    private int totalMoneyEver;
     private String email;
     private int clicks;
     private Timer timer;
+    private Timer timer2;
     private int goldBars;
-    private final double goldBarsBonus = 1.0f;
+    private int powerClickDuration;
+    private int powerSecondDuration;
+    private int powerClickCooldown;
+    private int powerSecondCooldown;
+    private final double goldBarsBonus = 0.1f;
+    private final int powerDuration = 60;
+    private final int powerCooldown = 300;
+
+
 
     private User()
     {
@@ -28,17 +38,40 @@ class User {
         this.currentRefreshTime = 1000;
         this.totalMoneyThisAscension = 0;
         this.goldBars = 0;
+        this.powerClickDuration = 0;
+        this.powerSecondDuration = 0;
+        this.totalMoneyEver = 0;
+        this.powerClickCooldown = 0;
+        this.powerSecondCooldown = 0;
 
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                currentMoneyAmount += currentMoneyPerSecond +
-                        currentMoneyPerSecond * (int)(goldBars * goldBarsBonus);
-                totalMoneyThisAscension += currentMoneyPerSecond +
-                        currentMoneyPerSecond * (int)(goldBars * goldBarsBonus);
+                currentMoneyAmount += getMoneyPerSecond();
+                totalMoneyThisAscension += getMoneyPerSecond();
+                totalMoneyEver += getMoneyPerSecond();
+
                 //moneyText.setText(currentMoneyAmount + "$");
             }
         }, 0, currentRefreshTime);
+
+        timer2 = new Timer();
+        timer2.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                if(powerClickDuration > 0)
+                    powerClickDuration --;
+
+                if(powerSecondDuration > 0)
+                    powerSecondDuration --;
+
+                if(powerSecondCooldown > 0)
+                    powerSecondCooldown --;
+
+                if(powerClickCooldown > 0)
+                    powerClickCooldown --;
+
+            }
+        }, 0, 1000);
 
     }
 
@@ -52,6 +85,7 @@ class User {
         this.currentRefreshTime = 1000;
         this.totalMoneyThisAscension = 0;
         this.goldBars = 0;
+        this.totalMoneyEver = 0;
     }
 
     public static User getInstance(){
@@ -71,6 +105,11 @@ class User {
         int rez [] = {goldBars, totalMoneyThisAscension, clicks, currentMoneyIncrease,
         currentMoneyAmount, currentMoneyPerSecond, currentRefreshTime};
         return rez;
+    }
+
+    public int getTotalMoneyEver()
+    {
+        return this.totalMoneyEver;
     }
 
     public int getGoldBars()
@@ -148,6 +187,11 @@ class User {
         this.totalMoneyThisAscension = totalMoneyThisAscension;
     }
 
+    public void setTotalMoneyEver(int totalMoneyEver)
+    {
+        this.totalMoneyEver = totalMoneyEver;
+    }
+
     public void setUser(String email, int data[])
     {
         this.email = email;
@@ -163,33 +207,41 @@ class User {
 
     public void addMoney()
     {
-        this.currentMoneyAmount += this.currentMoneyIncrease +
-                this.currentMoneyIncrease * (int)(goldBars * goldBarsBonus);
-        this.totalMoneyThisAscension += this.currentMoneyIncrease +
-                this.currentMoneyIncrease * (int)(goldBars * goldBarsBonus);
+        int buffer = this.getMoneyPerClick();
+        this.currentMoneyAmount += buffer;
+        this.totalMoneyThisAscension += buffer;
+        this.totalMoneyEver += buffer;
         this.clicks ++;
     }
 
     public void ascendUser()
     {
         this.currentMoneyAmount = 0;
-        this.goldBars += this.totalMoneyThisAscension/(this.goldBars/10 + 100);
+        this.goldBars += this.totalMoneyThisAscension/(this.goldBars/5 + 100);
         this.totalMoneyThisAscension = 0;
         this.currentRefreshTime = 0;
         this.currentMoneyPerSecond = 0;
+        this.currentMoneyIncrease = 1;
 
     }
 
     public int getMoneyPerSecond()
     {
-        return currentMoneyPerSecond +
-                currentMoneyPerSecond * (int)(goldBars * goldBarsBonus);
+        int buff = currentMoneyPerSecond +
+                (int)(currentMoneyPerSecond * goldBars * goldBarsBonus);
+        if ( powerSecondDuration > 0)
+            return 2 * buff;
+        return buff;
     }
 
     public int getMoneyPerClick()
     {
-        return this.currentMoneyIncrease +
-                this.currentMoneyIncrease * (int)(goldBars * goldBarsBonus);
+        int buff = this.currentMoneyIncrease +
+                (int)(this.currentMoneyIncrease * goldBars * goldBarsBonus);
+
+        if(powerClickDuration > 0)
+            return 2 * buff;
+        return buff;
     }
 
     public int getGoldBarIfAscend()
@@ -224,6 +276,28 @@ class User {
         user.setCurrentMoneyPerSecond(((Long)dataSnapshot.child("currentMoneyPerSecond").getValue()).intValue());
         user.setGoldBars(((Long)dataSnapshot.child("goldBars").getValue()).intValue());
         user.setTotalMoneyThisAscension(((Long)dataSnapshot.child("totalMoneyThisAscension").getValue()).intValue());
+    }
+
+    public void setPowerClickDuration(){
+        this.powerClickDuration = this.powerDuration;
+        this.powerClickCooldown = this.powerCooldown;
+    }
+
+    public void setPowerSecondDuration(){
+        this.powerSecondDuration = this.powerDuration;
+        this.powerSecondCooldown = this.powerCooldown;
+    }
+
+    public boolean isSecondCooldown(){
+        if ( this.powerSecondCooldown > 0)
+            return true;
+        return false;
+    }
+
+    public boolean isClickCooldown(){
+        if ( this.powerClickCooldown > 0)
+            return true;
+        return false;
     }
 
 }

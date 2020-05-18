@@ -31,34 +31,36 @@
 
     <ImageButton
         android:id="@+id/settingMenuBtn"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
+        android:layout_width="59dp"
+        android:layout_height="63dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="6dp"
-        android:background="#240b36"
+        android:background="@drawable/settingsb"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toEndOf="@+id/editText"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_manage"
+        app:srcCompat="@android:drawable/divider_horizontal_dark"
         tools:ignore="UnknownId" />
 
     <ImageView
         android:id="@+id/clicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="302dp"
+        android:layout_height="302dp"
         android:layout_centerInParent="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/goodcookie"
+        android:background="@drawable/madsun"
         android:foreground="?android:attr/selectableItemBackground"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/moneyView"
-        app:srcCompat="@drawable/goodcookie" />
+        app:layout_constraintVertical_bias="0.37"
+        app:srcCompat="@drawable/madsun" />
 
     <TextView
         android:id="@+id/moneyPerSecView"
@@ -93,20 +95,23 @@
         android:id="@+id/powerClickBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/picklerick2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/shopMenuBtn"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+        app:srcCompat="@drawable/picklerick2" />
 
     <ImageButton
         android:id="@+id/powerSecondBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/portalgun2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.634"
         app:layout_constraintStart_toEndOf="@+id/powerClickBtn"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:srcCompat="@drawable/portalgun2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.example.myfirstapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -38,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
 
     protected User user = User.getInstance();
     protected Shop shop = Shop.getInstance();
+    protected DataManipulator dataMan = DataManipulator.getInstance();
+    private static final String SHARED_PREFS =  "Prefs";
 
     void addNewUser(String email) {
         user.resetUser();
@@ -99,7 +102,10 @@ public class LoginActivity extends AppCompatActivity {
                 isLogged = false;
                 Toast.makeText(LoginActivity.this,
                         "Playing as guest...", Toast.LENGTH_LONG).show();
-                // TODO - get data from file for guest user
+
+                if (mAuth.getCurrentUser() == null)
+                    dataMan.getSharedPrefs(getSharedPreferences(SHARED_PREFS, 0));
+
                 startActivity(new Intent(LoginActivity.this, Gameplay.class));
             }
         });
