@@ -91,7 +91,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(LoginActivity.this,
                         "Registering...", Toast.LENGTH_LONG).show();
-                addNewUser(emailText.getEditableText().toString());
                 startRegister();
             }
         });
@@ -179,6 +178,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this,
                                         "Register successful, you may now log in", Toast.LENGTH_LONG).show();
+                                addNewUser(emailText.getEditableText().toString());
                             } else {
                                 Toast.makeText(LoginActivity.this,
                                         "E-mail already in use or invalid", Toast.LENGTH_LONG).show();
