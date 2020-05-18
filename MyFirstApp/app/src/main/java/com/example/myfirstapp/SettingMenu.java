@@ -23,6 +23,8 @@ public class SettingMenu extends AppCompatActivity {
     private ImageView statsBtn;
     private ImageView settingsBtn;
     private ImageView logoutBtn;
+    private ImageView leaderboardBtn;
+
     private FirebaseAuth mAuth;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference ref = database.getReference("users");
@@ -41,6 +43,8 @@ public class SettingMenu extends AppCompatActivity {
         statsBtn = (ImageView) findViewById(R.id.statsBtn);
         settingsBtn = (ImageView) findViewById(R.id.settingsBtn);
         logoutBtn = (ImageView) findViewById(R.id.logoutBtn);
+        leaderboardBtn = (ImageView) findViewById(R.id.leaderboardBtn);
+
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +103,13 @@ public class SettingMenu extends AppCompatActivity {
                     Toast.makeText(SettingMenu.this,
                             "You are currently a Guest", Toast.LENGTH_LONG).show();
                 }
+
+            }
+        });
+
+        leaderboardBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });
