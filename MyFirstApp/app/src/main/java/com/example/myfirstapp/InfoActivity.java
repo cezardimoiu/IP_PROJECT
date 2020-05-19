@@ -42,7 +42,7 @@ public class InfoActivity extends AppCompatActivity {
         moneyText.setText("Your total ever money amount is: " + myUser.getTotalMoneyEver() + "$");
         clicksText.setText("Your current number of clicks is: " + myUser.getClicks());
         goldBarsText.setText("Your current number of gold bars is: " + myUser.getGoldBars());
-        Sec.setText("Your current money/sec value is: " + myUser.getCurrentMoneyIncrease());
+        Sec.setText("Your current money/sec value is: " + myUser.getCurrentMoneyPerSecond());
         moneyClick.setText("Your current money/click is: " + myUser.getMoneyPerClick());
     }
 }

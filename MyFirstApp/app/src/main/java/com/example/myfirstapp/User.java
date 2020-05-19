@@ -26,6 +26,7 @@ class User {
     private final double goldBarsBonus = 0.1f;
     private final int powerDuration = 60;
     private final int powerCooldown = 300;
+    private float volume = 1.0f;
 
 
 
@@ -297,6 +298,14 @@ class User {
         if ( this.powerClickCooldown > 0)
             return true;
         return false;
+    }
+
+    public void setVolume(float volume) {
+        this.volume = volume;
+    }
+
+    public float getVolume() {
+        return this.volume;
     }
 
 }

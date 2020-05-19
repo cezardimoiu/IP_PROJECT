@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -43,6 +44,8 @@ public class Gameplay extends AppCompatActivity {
     private static final String SHARED_PREFS =  "Prefs";
     private int data[][];
 
+    MediaPlayer pewSoundMP;
+
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference ref = database.getReference("users");
 
@@ -52,6 +55,7 @@ public class Gameplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gameplay);
         mAuth = FirebaseAuth.getInstance();
+        pewSoundMP = MediaPlayer.create(this, R.raw.pewpew);
 
         ImageView img = (ImageView) findViewById(R.id.clicker);
         settingMenuBtn = (ImageButton) findViewById(R.id.settingMenuBtn);
@@ -80,6 +84,9 @@ public class Gameplay extends AppCompatActivity {
                             moneyText.setText(myUser.getCurrentMoneyAmount() + "$");
                         }
                     });
+                    pewSoundMP.setVolume(myUser.getVolume() / 2, myUser.getVolume() / 2);
+                    pewSoundMP.seekTo(0);
+                    pewSoundMP.start();
                     v.startAnimation(a);
                 }
                 return true;
