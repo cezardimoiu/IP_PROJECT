@@ -57,8 +57,10 @@ public class SActivity extends AppCompatActivity {
                     Toast.makeText(SActivity.this,
                             "All progress reset",
                             Toast.LENGTH_LONG).show();
+                            String email = myUser.getEmail();
                             myUser.resetUser();
                             myShop.resetShop();
+                            myUser.setEmail(email);
                             startActivity(new Intent(SActivity.this, Gameplay.class));
                 }
                 else{

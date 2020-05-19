@@ -39,6 +39,8 @@ public class Gameplay extends AppCompatActivity {
     int animX, animY;
     private User myUser = User.getInstance();
     private Shop myShop = Shop.getInstance();
+    private Leaderboard leaderboard = Leaderboard.getInstance();
+
     private DataManipulator dataMan = DataManipulator.getInstance();
     private FirebaseAuth mAuth;
     private static final String SHARED_PREFS =  "Prefs";
@@ -48,6 +50,7 @@ public class Gameplay extends AppCompatActivity {
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference ref = database.getReference("users");
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -159,7 +162,15 @@ public class Gameplay extends AppCompatActivity {
                     dataMan.setSharedPrefs(getSharedPreferences(SHARED_PREFS, 0));
 
                 }
-            }, 0, 1200);
+            }, 1000, 6000);
+        } else {
+            Timer timer2 = new Timer();
+            timer2.scheduleAtFixedRate(new TimerTask() {
+                public void run() {
+                    //TODO - Must write info
+                    leaderboard.addUser(myUser);
+                }
+            }, 1000, 6000);
         }
         moneyPerSecText.setText(myUser.getMoneyPerSecond() + "$/sec");
     }

@@ -96,8 +96,8 @@ public class SettingMenu extends AppCompatActivity {
                     ref.child(username).child("shop").child("priceSecond").setValue(shop.getListPriceSecond());
 
                     database.getReference("leaderboard").child(username).setValue(user.getTotalMoneyEver());
-                    user.resetUser();
                     shop.resetShop();
+                    user.resetUser();
 
                     FirebaseAuth.getInstance().signOut();
                     Toast.makeText(SettingMenu.this,
@@ -121,7 +121,6 @@ public class SettingMenu extends AppCompatActivity {
                        @Override
                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             leaderboard.getDataFromDatabase(dataSnapshot);
-                            startActivity(new Intent(SettingMenu.this, LeaderboardActivity.class));
                        }
 
                        @Override
@@ -129,6 +128,12 @@ public class SettingMenu extends AppCompatActivity {
 
                        }
                     });
+                    try {
+                        Thread.sleep(300);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    startActivity(new Intent(SettingMenu.this, LeaderboardActivity.class));
                 }
                 else {
                     Toast.makeText(SettingMenu.this,

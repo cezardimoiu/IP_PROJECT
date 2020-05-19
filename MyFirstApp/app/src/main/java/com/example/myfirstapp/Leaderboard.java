@@ -57,4 +57,5 @@ public class Leaderboard {
         ref.child(username).setValue(user.getTotalMoneyEver());
         mapleader.put(username, user.getTotalMoneyEver());
     }
+
 }
