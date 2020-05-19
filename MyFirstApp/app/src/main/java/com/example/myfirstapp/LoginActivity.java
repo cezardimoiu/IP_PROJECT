@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         DatabaseReference localRef = ref.child(username);
         user.setClicks(0);
         int rez[] = user.getAllUserInfo();
-        leaderboard.addUser(user);
+
         localRef.child("goldBars").setValue(rez[0]);
         localRef.child("totalMoneyThisAscension").setValue(rez[1]);
         localRef.child("clicks").setValue(rez[2]);
