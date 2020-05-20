@@ -48,21 +48,23 @@ public class LeaderboardActivity extends AppCompatActivity {
             }
         });
 
-        String username = user.getEmail().split("@")[0];
+        if (user != null || user.getEmail() != null) {
+            String username = user.getEmail().split("@")[0];
 
-        for (int i = 0; i < 5; i++) {
-            if (list.size() > i) {
-                if (list.get(i).getKey().equals(username))
-                    listTextView[i].setText(i + 1 + ". You - " + list.get(i).getValue() + "$");
+            for (int i = 0; i < 5; i++) {
+                if (list.size() > i) {
+                    if (list.get(i).getKey().equals(username))
+                        listTextView[i].setText(i + 1 + ". You - " + list.get(i).getValue() + "$");
+                    else
+                        listTextView[i].setText(i + 1 + "." + list.get(i).getKey() + " - " + list.get(i).getValue() + "$");
+                }
                 else
-                    listTextView[i].setText(i + 1 + "." + list.get(i).getKey() + " - " + list.get(i).getValue() + "$");
+                    listTextView[i].setText("-");
             }
-            else
-                listTextView[i].setText("-");
-        }
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getKey().equals(username)) {
-                currentPlace.setText(i + 1 + ". You - " + list.get(i).getValue() + "$");
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getKey().equals(username)) {
+                    currentPlace.setText(i + 1 + ". You - " + list.get(i).getValue() + "$");
+                }
             }
         }
     }

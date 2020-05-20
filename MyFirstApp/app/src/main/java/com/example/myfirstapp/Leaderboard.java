@@ -53,9 +53,11 @@ public class Leaderboard {
 
     public void addUser(User user)
     {
-        String username = user.getEmail().split("@")[0];
-        ref.child(username).setValue(user.getTotalMoneyEver());
-        mapleader.put(username, user.getTotalMoneyEver());
+        if (user.getEmail() != null) {
+            String username = user.getEmail().split("@")[0];
+            ref.child(username).setValue(user.getTotalMoneyEver());
+            mapleader.put(username, user.getTotalMoneyEver());
+        }
     }
 
 }
